@@ -1,0 +1,12 @@
+site_name: Infrastructure/Keycloak
+site_url: https://system73.com/
+
+markdown_extensions:
+  # Beautiful different types of notes.
+  # https://squidfunk.github.io/mkdocs-material/reference/admonitions/#supported-types
+  - admonition
+
+nav:
+  - Overview: overview.md
+  - Security Model: security-model.md
+  - FAQ: faq.md

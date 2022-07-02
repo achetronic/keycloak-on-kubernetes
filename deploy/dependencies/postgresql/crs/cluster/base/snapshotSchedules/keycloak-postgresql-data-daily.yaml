@@ -1,0 +1,13 @@
+apiVersion: snapscheduler.backube/v1
+kind: SnapshotSchedule
+metadata:
+  name: keycloak-postgresql-data-daily
+spec:
+  disabled: false
+  claimSelector:
+    matchLabels:
+      app.kubernetes.io/name: postgresql
+      app.kubernetes.io/part-of: keycloak
+  retention:
+    maxCount: 30
+  schedule: "0 0 * * *"

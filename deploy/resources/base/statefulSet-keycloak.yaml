@@ -1,0 +1,35 @@
+# Guides: https://www.keycloak.org/guides#server
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: keycloak
+spec:
+  selector: {}
+  serviceName: "keycloak"
+  replicas: 1
+  template:
+    metadata:
+      labels: {}
+    spec:
+      serviceAccountName: keycloak
+      containers:
+      - name: keycloak
+        image: quay.io/keycloak/keycloak:latest
+        args: ["start", "--auto-build"]
+        envFrom:
+        - configMapRef:
+            name: configuration-parameters
+        - secretRef:
+            name: keycloak-admin-credentials
+        - secretRef:
+            name: keycloak-database-credentials
+        ports:
+        - name: http
+          containerPort: 8080
+        - name: jgroups
+          containerPort: 7800
+        readinessProbe:
+          httpGet:
+            path: /realms/master
+            port: 8080

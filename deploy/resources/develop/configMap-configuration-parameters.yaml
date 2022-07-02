@@ -1,0 +1,33 @@
+# Configuration: https://www.keycloak.org/server/all-config
+# Logging: https://www.keycloak.org/server/logging
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configuration-parameters
+data:
+  # Clustering parameters
+  KC_CACHE_STACK: kubernetes
+  JAVA_OPTS_APPEND: "-Djgroups.dns.query=keycloak-jgroups.keycloak.svc"
+  CACHE_OWNERS_COUNT: "1"
+  CACHE_OWNERS_AUTH_SESSIONS_COUNT: "1"
+
+  # Networking parameters
+  KC_HTTP_ENABLED: "true"
+  KC_HOSTNAME: "keycloak.infrastructure.dev.s73cloud.com"
+  KC_HOSTNAME_STRICT: "false"
+  KC_PROXY: "edge"
+  PROXY_ADDRESS_FORWARDING: "true"
+
+  # Database parameters
+  KC_DB: postgres
+  KC_DB_URL_HOST: "keycloak-postgresql-cluster.keycloak.svc"
+  KC_DB_URL_PORT: "5432"
+  KC_DB_URL_DATABASE: "keycloak_data"
+
+  # Monitoring parameters
+  KC_HEALTH_ENABLED: "true"
+  KC_METRICS_ENABLED: "true"
+  KC_LOG: console
+  KC_LOG_CONSOLE_OUTPUT: json
+  KC_LOG_LEVEL: info

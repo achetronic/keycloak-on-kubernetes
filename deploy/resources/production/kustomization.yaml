@@ -1,0 +1,26 @@
+# https://www.keycloak.org/server/containers
+# https://www.janua.fr/keycloak-x-and-kubernetes-how-to-deploy-a-cluster/
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: keycloak
+
+images:
+  - name: quay.io/keycloak/keycloak
+    newTag: 18.0.0
+
+replicas:
+  - name: keycloak
+    count: 3
+
+commonLabels:
+  app.kubernetes.io/environment: production
+
+resources:
+  - ../base
+
+  # Deploy resources related to the environment
+  - externalSecrets
+  - configMap-configuration-parameters.yaml
+  - ingress-keycloak.yaml

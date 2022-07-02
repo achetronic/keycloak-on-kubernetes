@@ -1,0 +1,25 @@
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: keycloak-postgresql-cluster
+spec:
+  teamId: "keycloak"
+
+  postgresql:
+    version: "14"
+
+  volume:
+    size: 50Gi
+
+  numberOfInstances: 3
+
+  # Database owners
+  users:
+    keycloak:
+      - superuser
+      - createdb
+
+  # Databases ownership relations
+  # The syntax example is: 'db_name: owner'
+  databases:
+    keycloak_data: keycloak

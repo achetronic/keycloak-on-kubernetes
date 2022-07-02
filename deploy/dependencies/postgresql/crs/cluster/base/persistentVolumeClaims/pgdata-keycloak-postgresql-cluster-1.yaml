@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pgdata-keycloak-postgresql-cluster-1
+  labels:
+    app.kubernetes.io/name: postgresql
+    app.kubernetes.io/part-of: keycloak
+spec:
+  storageClassName: csi-block
+
+  # ATTENTION:
+  # Even when the cluster or VolumeSnapshotContent CRs are removed, if snapshots were stored in the cloud provider,
+  # they can be recovered. Just read the README and the 'recovery' directory to get the content of a cloud snapshot
+
+  # Uncomment the following lines if you need to create this PVC from a VolumeSnapshot,
+  # Set the name of the snapshot properly before applying the resource
+  #dataSource:
+  #  name: pgdata-gitlab-postgresql-cluster-1
+  #  kind: VolumeSnapshot
+  #  apiGroup: snapshot.storage.k8s.io
+
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi

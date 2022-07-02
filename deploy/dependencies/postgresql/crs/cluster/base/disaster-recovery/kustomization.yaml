@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: default
+
+resources:
+  # Retrieve the content of the snapshot from the cloud provider. Then craft a VolumeSnapshotContent with it.
+  # Remember some Snapshot IDs must match, so we have written deeper information inside.
+  - volumeSnapshotContents
+
+  # Create the VolumeSnapshot CRs from the VolumeSnapshotContent CRs
+  - volumeSnapshots

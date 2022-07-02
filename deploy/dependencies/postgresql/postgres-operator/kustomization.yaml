@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: postgres-operator
+
+# Enable HA to avoid PostgreSQL failures due to operator ones
+replicas:
+  - name: postgres-operator
+    count: 3
+
+resources:
+  # Deploy the operator
+  - https://github.com/zalando/postgres-operator.git//manifests?ref=v1.7.1
+
+  # Deploy a GUI
+  #- https://github.com/zalando/postgres-operator.git//ui/manifests
+

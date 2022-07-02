@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: keycloak-read-pods
+subjects:
+  - kind: ServiceAccount
+    name: keycloak
+    namespace: keycloak
+roleRef:
+  kind: Role
+  name: keycloak-pod-reader
+  apiGroup: rbac.authorization.k8s.io
