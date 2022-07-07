@@ -1,5 +1,5 @@
-site_name: Infrastructure/Keycloak
-site_url: https://system73.com/
+site_name: Keycloak
+site_url: https://github.com/prosimcorp/keycloak
 
 markdown_extensions:
   # Beautiful different types of notes.
@@ -7,6 +7,6 @@ markdown_extensions:
   - admonition
 
 nav:
-  - Overview: overview.md
+  - Overview: README.md
   - Security Model: security-model.md
   - FAQ: faq.md

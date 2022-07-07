@@ -21,6 +21,6 @@ resources:
   - ../base
 
   # Deploy resources related to the environment
-  - externalSecrets
+  #- externalSecrets
   - configMap-configuration-parameters.yaml
   - ingress-keycloak.yaml

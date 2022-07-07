@@ -4,5 +4,5 @@ kind: Kustomization
 namespace: keycloak
 
 resources:
-  # Craft the Secret resources using credentials from Vault for develop environment
-  - externalSecrets
+  # Craft the Secret resources using credentials directly only for testing purposes
+  - secrets

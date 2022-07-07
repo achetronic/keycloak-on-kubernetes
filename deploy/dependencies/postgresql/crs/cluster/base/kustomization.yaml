@@ -4,10 +4,6 @@ kind: Kustomization
 namespace: default
 
 resources:
-  # Only here for extreme disaster recovery situations where even the VolumeSnapshots have disappeared from Kubernetes.
-  # Deeper information inside the manifests
-  #- disaster-recovery
-
   # Create PVCs for the PostgreSQL nodes. The resources are created by us (and not by the PostgreSQL Operator)
   # for disaster recovery situations where is needed to launch the PVC from a VolumeSnapshot, before spinning up the
   # Postgre cluster from it
@@ -17,5 +13,4 @@ resources:
   # for that is that the Operator's strategy is bad implemented and not working properly
   - postgresql-keycloak-postgresql-cluster.yaml
 
-  # Schedule snapshots for Postgre's PVCs. This will help you in the future to handle possible disasters
-  - snapshotSchedules
+

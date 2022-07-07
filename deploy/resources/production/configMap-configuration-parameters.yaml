@@ -14,7 +14,7 @@ data:
 
   # Networking parameters
   KC_HTTP_ENABLED: "true"
-  KC_HOSTNAME: "keycloak.infrastructure.s73cloud.com"
+  KC_HOSTNAME: "keycloak.your-company.com"
   KC_HOSTNAME_STRICT: "false"
   KC_PROXY: "edge"
   PROXY_ADDRESS_FORWARDING: "true"

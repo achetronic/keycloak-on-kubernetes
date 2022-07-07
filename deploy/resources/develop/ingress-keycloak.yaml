@@ -26,7 +26,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: &host keycloak.infrastructure.dev.s73cloud.com
+    - host: &host keycloak.dev.your-company.com
       http:
         paths:
           - path: /

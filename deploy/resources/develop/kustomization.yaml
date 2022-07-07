@@ -12,7 +12,7 @@ images:
 
 replicas:
   - name: keycloak
-    count: 1
+    count: 3
 
 commonLabels:
   app.kubernetes.io/environment: develop
@@ -21,6 +21,6 @@ resources:
   - ../base
 
   # Deploy resources related to the environment
-  - externalSecrets
+  - secrets
   - configMap-configuration-parameters.yaml
   - ingress-keycloak.yaml

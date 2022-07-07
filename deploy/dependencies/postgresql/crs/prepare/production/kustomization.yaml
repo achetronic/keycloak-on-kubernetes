@@ -6,3 +6,5 @@ namespace: keycloak
 resources:
   # Craft the Secret resources using credentials from Vault for production environment
   - externalSecrets
+
+  
