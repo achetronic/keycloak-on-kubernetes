@@ -1,8 +1,8 @@
-# Keycloak documentation
+# Full documentation
 
 ## Description
 
-General documentation about the Keycloak
+Full documentation about Keycloak on Kubernetes
 
 ## Requirements
 

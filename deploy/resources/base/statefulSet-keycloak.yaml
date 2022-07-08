@@ -21,9 +21,10 @@ spec:
         - configMapRef:
             name: configuration-parameters
         - secretRef:
-            name: keycloak-admin-credentials
-        - secretRef:
             name: keycloak-database-credentials
+        - secretRef:
+            name: keycloak-admin-credentials
+            optional: true
         ports:
         - name: http
           containerPort: 8080
