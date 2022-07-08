@@ -1,8 +1,8 @@
-# Keycloak
+# Keycloak manifests
 
 ## Description
 
-Deployment manifests for Keycloak inside Kubernetes.
+Deploy Keycloak inside Kubernetes without the initial pain.
 
 > Keycloak is a provider for identities (IdP) and the authorization flows needed to identify them (OIDC)
 
@@ -106,12 +106,13 @@ kubectl apply -k ./deploy/dependencies/postgresql/postgres-operator
 
 Then you can deploy the database
 
-> Credentials for this step are get from Vault, so remember than Vault must be working first
-
 ```console
 kubectl apply -k ./deploy/dependencies/postgresql/crs/prepare/develop
 kubectl apply -k ./deploy/dependencies/postgresql/crs/cluster/develop
 ```
+
+> Credentials for this step are taken from a secrets store on `production`, using External Secrets, so remember to have
+> one of them working first, like Hashicorp Vault.
 
 ### Deploy Keycloak
 
