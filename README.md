@@ -1,4 +1,8 @@
-# Keycloak manifests
+<p align="center">
+	<img src="docs/docs/img/logo/logo-300px.png" width="40%" align="center" alt="Keycloak on Kubernetes">
+</p>
+
+# Keycloak on Kubernetes
 
 ## Description
 
@@ -34,8 +38,8 @@ diagram only shows how it interacts with other kind of services.
 ```
 
 You may be interested in a detailed insight about the system and how interacts with other system. Of course, if you
-are that crazy, you can launch the full documentation (which is exposed in the meta-documentation) following
-[these steps](./README.md#full-documentation) and see the full diagrams inside the section `Security Model`
+are that crazy, you can launch the full documentation following [these steps](./README.md#full-documentation)
+and see the full diagrams inside the section `Security Model`
 
 ## Motivation
 
@@ -56,7 +60,7 @@ There are two scenarios where this has been needed:
 
 > **ATTENTION**
 >
-> All the requirements are already covered by other projects crafted by us:
+> All the requirements are already covered by other projects crafted by us to bootstrap Kubernetes:
 >
 > - [Tooling Stack](https://github.com/prosimcorp/tooling-stack)
 > - [Monitoring Stack](https://github.com/prosimcorp/monitoring-stack)
@@ -111,8 +115,8 @@ kubectl apply -k ./deploy/dependencies/postgresql/crs/prepare/develop
 kubectl apply -k ./deploy/dependencies/postgresql/crs/cluster/develop
 ```
 
-> Credentials for this step are taken from a secrets store on `production`, using External Secrets, so remember to have
-> one of them working first, like Hashicorp Vault.
+> Credentials for this step are taken from a secrets vault on `production`, using External Secrets, so remember to have
+> one of them working first, for example Hashicorp Vault.
 
 ### Deploy Keycloak
 
@@ -122,10 +126,9 @@ This is the easy part, there we go:
 kubectl apply -k ./deploy/resources/develop
 ```
 
-> When deploying Keycloak, an admin user can be created. This is suitable for first starts and for undesirable situations
+> When deploying Keycloak, an admin user is created. This is suitable for first starts and for undesirable situations
 > where some administrator simply meshed up everything and it is needed to restore the order and peace into Keycloak.
-> For doing this, just uncomment desired environment variables inside the `ConfigMap` done for that purpose on deployment
-> manifests. Don't use this in daily scenarios.
+> Remove it after configuring your real admin users.
 
 ## Full documentation
 
