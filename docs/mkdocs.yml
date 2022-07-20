@@ -1,5 +1,5 @@
 site_name: Keycloak
-site_url: https://github.com/prosimcorp/keycloak
+site_url: https://github.com/achetronic/keycloak-in-kubernetes
 
 markdown_extensions:
   # Beautiful different types of notes.

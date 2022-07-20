@@ -40,7 +40,7 @@ diagram only shows how it interacts with other kind of services.
 ```
 
 You may be interested in a detailed insight about the system and how interacts with other system. Of course, if you
-are that crazy, you can launch the full documentation following [these steps](./README.md#full-documentation)
+are that crazy, you can launch the full documentation following [these steps](README.md#full-documentation)
 and see the full diagrams inside the section `Security Model`
 
 ## Motivation
@@ -48,14 +48,14 @@ and see the full diagrams inside the section `Security Model`
 There are two scenarios where this has been needed:
 
 1. The companies commonly handle several internal tools which need to be authenticated or authorized to allow entrance.
-   such as a secrets vault or a pipelines executor. Even when most them expose ways to access, these ways are heterogeneous
+   such as a secrets vault or a pipelines' executor. Even when most them expose ways to access, these ways are heterogeneous
    and uncomfortable. For convenience, a way to reduce overhead for employees is enabling SSO (Single Sign On) on every
    tool that is capable to use it.
 
 2. Companies products need different ways to authorize its usage: SDKs, APIs, etc; and usually craft
    a different authorization flow for each product due to some of them are bought, others are homemade, and developers
-   need to code fast and reduce team interdependency. In some point everything usually become a mesh for everyone and it is
-   needed to unify these flows for all the company, allowing each tool to be authorized in a different way, but
+   need to code fast and reduce team interdependency. In some point everything typically become a mesh for everyone, 
+   and it is needed to unify these flows for all the company, allowing each tool to be authorized in a different way, but
    using the same user pool (cough, cough!! do you remember Oauth?)
 
 ## Requirements
@@ -87,7 +87,7 @@ To expose the system to external traffic (the system is exposed using an Ingress
 
 ### Required only on `production`
 
-- **[Common](./README.md#common) +**
+- **[Common](README.md#common) +**
 - [External Secrets](https://external-secrets.io/)
 
 > On production, we assume that the credentials come from a secrets vault, such as [Hashicorp Vault](https://www.vaultproject.io/) 
@@ -99,7 +99,7 @@ To expose the system to external traffic (the system is exposed using an Ingress
 ## How to deploy
 
 > **The deployment will be done assuming `develop` environment**. If you are trying to deploy this in production,
-> some extra requirements must be satisfied, better explained on the [requirements section](./README.md#requirements)
+> some extra requirements must be satisfied, better explained on the [requirements section](README.md#requirements)
 
 Deploying this project is easy, just follow the following commands from the root path of the repository:
 
@@ -142,9 +142,9 @@ kubectl apply -k ./deploy/dependencies/postgresql/crs/prepare/production
 ```
 
 > **Remember**
-> - For production, you must satisfy some [extra requirements](./README.md#required-only-on-production)
+> - For production, you must satisfy some [extra requirements](README.md#required-only-on-production)
 > - The database credentials have to already exist on your vault into the same paths we use on 
->   [these manifests](./deploy/dependencies/postgresql/crs/prepare/production/externalSecrets) 
+>   [these manifests](deploy/dependencies/postgresql/crs/prepare/production/externalSecrets) 
 </details>
 
 Then you can deploy the database
@@ -172,7 +172,7 @@ kubectl apply -k ./deploy/resources/production
 ```
 
 > **Remember (again)**
-> - For production, you must satisfy some [extra requirements](./README.md#required-only-on-production)
+> - For production, you must satisfy some [extra requirements](README.md#required-only-on-production)
 > - Some credentials have to already exist on your vault into the same paths we use on 
 >   [these other manifests](deploy/resources/production/externalSecrets) 
 </details>
@@ -184,7 +184,7 @@ kubectl apply -k ./deploy/resources/production
 ## Full documentation
 
 Full documentation is available as a complement for this one. To know more, and how to, there are a
-[specific guide](./docs/README.md) you can follow with simple steps for that.
+[specific guide](docs/README.md) you can follow with simple steps for that.
 
 We encourage you to read it due to we included deeper information about security model and a section for `FAQ`. That
 documentation will be improved over the time.
@@ -197,4 +197,4 @@ You can do the magic in just a few steps:
 2. Create a branch and do the changes you need
 3. Open a pull request, filling all the fields correctly, you know, a good description, squash your commits, etc.
 4. Wait until the PR is approved by the team
-5. Ready to merge the code, so drink beers, cheers and enjoy 🍻 🎉 🎉
+5. Ready to merge the code, so drink beers, cheers and enjoy 🍻 🎉

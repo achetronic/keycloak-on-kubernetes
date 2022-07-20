@@ -7,7 +7,7 @@
 
 ## Diagram
 
-![sso model diagram](./img/sso-model.png)
+![sso model diagram](img/sso-model.png)
 
 ## What is a realm
 
