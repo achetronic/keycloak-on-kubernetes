@@ -1,12 +1,18 @@
 apiVersion: v2
-appVersion: '1.0'
-description: keycloak
-name: keycloak
-version: 0.1.0
 type: application
+name: keycloak
+description: Keycloak deployment using Helm
+version: 0.1.5
+appVersion: '20.0.1'
 
 dependencies:
   - name: keycloakx
     alias: keycloak
     version: 2.0.0
     repository: https://codecentric.github.io/helm-charts
+
+  - name: postgresql
+    version: 12.1.5
+    repository: https://charts.bitnami.com/bitnami
+    condition: postgresql.enabled
+

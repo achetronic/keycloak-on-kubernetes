@@ -1,1 +1,16 @@
+# DISCLAIMER: This is only here due to a bug on Codecentric's helm chart
+# So we have to open an issue for the template 'keycloak.labels.version'
+image:
+  tag: ""
+
+global:
+  # These variables will be included into a configmap called 'keycloak-global-env'
+  # It is done this way to be able to merge global-defined env vars with some specific
+  # ones defined only on some environments
+  env: {}
+
+  # These variables will be included into a secret called 'keycloak-global-env'
+  secretEnv: {}
+
+#
 keycloak: {}

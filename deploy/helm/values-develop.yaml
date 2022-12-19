@@ -12,10 +12,16 @@ global:
 
   secretEnv:
     # PosgreSQL related variables
-    # KC_DB_PASSWORD: postgres
+    KC_DB_PASSWORD: postgres
 
     # Keycloak admin user related variables
-    # KEYCLOAK_ADMIN_PASSWORD: admin-placeholder
+    KEYCLOAK_ADMIN_PASSWORD: admin-placeholder
+
+  postgresql:
+    auth:
+      existingSecret: "keycloak-global-env"
+      secretKeys:
+        adminPasswordKey: "KC_DB_PASSWORD"
 
 # Ref: https://github.com/codecentric/helm-charts/blob/master/charts/keycloakx/values.yaml
 keycloak:
@@ -34,6 +40,9 @@ keycloak:
         verbs:
           - get
           - list
+
+  # On develop environments, it is not needed to spread the pods across several nodes to enforce HA
+  affinity: |
 
   # Deployment related parameters
   replicas: 3
@@ -96,36 +105,8 @@ keycloak:
 
   ingress:
     enabled: false
-    ingressClassName: nginx
-    annotations:
-      # Ingress controller
-      # Ref: https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/
-      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-      nginx.ingress.kubernetes.io/limit-rpm: "60"
-
-      # Configure sticky session. Keycloak is configured in cluster mode, but sticky sessions at ingress level avoid
-      # a lot of useless queries between nodes, improving the performance
-      nginx.ingress.kubernetes.io/affinity: cookie
-      nginx.ingress.kubernetes.io/affinity-mode: persistent
-      nginx.ingress.kubernetes.io/session-cookie-name: INGRESS_ROUTE
-      nginx.ingress.kubernetes.io/session-cookie-expires: "172800"
-      nginx.ingress.kubernetes.io/session-cookie-max-age: "172800"
-      nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
-
-      # Cert Manager
-      cert-manager.io/cluster-issuer: letsencrypt-production
-
-    rules:
-      - host: keycloak.barbudeando.com
-        paths:
-          - path: /
-            pathType: Prefix
-    tls:
-      - hosts:
-          - keycloak.example.com
-        secretName: "keycloak-tls"
 
 # Ref: https://github.com/bitnami/charts/blob/main/bitnami/postgresql/values.yaml
 postgresql:
-  enabled: false
+  enabled: true
   fullnameOverride: "postgresql"
