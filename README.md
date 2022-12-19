@@ -109,7 +109,7 @@ Deploying this project is easy, just follow the following commands from the root
 > namespaces. So we would like to have the namespaces safe if some day the infrastructure cluster is automated again.
 
 ```console
-kubectl apply -k ./deploy/dependencies/namespaces
+kubectl apply -k ./deploy/kustomize/dependencies/namespaces
 ```
 
 ### Deploy the database
@@ -117,7 +117,7 @@ kubectl apply -k ./deploy/dependencies/namespaces
 First you have to deploy the operator used to deploy the database:
 
 ```console
-kubectl apply -k ./deploy/dependencies/postgresql/postgres-operator
+kubectl apply -k ./deploy/kustomize/dependencies/postgresql/postgres-operator
 ```
 
 When the operator detects that the credentials are already created inside Kubernetes before deploying the database, it 
@@ -130,7 +130,7 @@ or deploying `ExternalSecret` resources on production environments:
    <summary>Command for develop</summary>
 
    ```console
-   kubectl apply -k ./deploy/dependencies/postgresql/crs/prepare/develop
+   kubectl apply -k ./deploy/kustomize/dependencies/postgresql/crs/prepare/develop
    ```
 </details>
 
@@ -138,7 +138,7 @@ or deploying `ExternalSecret` resources on production environments:
 <summary>Command for production</summary>
 
 ```console
-kubectl apply -k ./deploy/dependencies/postgresql/crs/prepare/production
+kubectl apply -k ./deploy/kustomize/dependencies/postgresql/crs/prepare/production
 ```
 
 > **Remember**
@@ -150,7 +150,7 @@ kubectl apply -k ./deploy/dependencies/postgresql/crs/prepare/production
 Then you can deploy the database
 
 ```console
-kubectl apply -k ./deploy/dependencies/postgresql/crs/cluster/develop
+kubectl apply -k ./deploy/kustomize/dependencies/postgresql/crs/cluster/develop
 ```
 
 ### Deploy Keycloak
@@ -162,13 +162,13 @@ This repository assumes there are two `ClusterIssuer` resources present on the c
 This is the easy part, there we go:
 
 ```console
-kubectl apply -k ./deploy/resources/develop
+kubectl apply -k ./deploy/kustomize/resources/develop
 ```
 <details>
 <summary>Command for production</summary>
 
 ```console
-kubectl apply -k ./deploy/resources/production
+kubectl apply -k ./deploy/kustomize/resources/production
 ```
 
 > **Remember (again)**

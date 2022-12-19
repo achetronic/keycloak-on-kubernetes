@@ -1,0 +1,114 @@
+# Ref: https://github.com/codecentric/helm-charts/blob/master/charts/keycloakx/values.yaml
+---
+keycloak:
+
+  # Configuration for the keycloak chart itself
+  fullnameOverride: keycloak
+
+  # RBAC rules for KUBE_PING discovery of the cluster nodes
+  rbac:
+    create: true
+    rules:
+      - apiGroups:
+          - ""
+        resources:
+          - pods
+        verbs:
+          - get
+          - list
+
+  # Deployment related parameters
+  replicas: 3
+  args: ["start", "--auto-build"]
+
+  # Disable autoconfiguration of several parameters, to avoid hiding critical configuration
+  # that affects the behaviour for Keycloak by this helm chart
+  cache:
+    stack: custom
+  proxy:
+    enabled: false
+  metrics:
+    enabled: false
+  health:
+    enabled: false
+
+  # Populate configuration environment variables. This is the native way for Keycloak
+  extraEnv: |
+    # Cache parameters
+    - name: KC_CACHE
+      value: "ispn"
+    - name: KC_CACHE_STACK
+      value: "kubernetes"
+    - name: JAVA_OPTS_APPEND
+      value: "-Djgroups.dns.query=keycloak-headless.keycloak.svc"
+    - name: CACHE_OWNERS_COUNT
+      value: "3"
+    - name: CACHE_OWNERS_AUTH_SESSIONS_COUNT
+      value: "3"
+
+    # Networking parameters
+    - name: KC_HTTP_ENABLED
+      value: "true"
+    - name: KC_HOSTNAME
+      value: keycloak.docplanner.io
+    - name: KC_HOSTNAME_STRICT
+      value: "false"
+    - name: KC_PROXY
+      value: "edge"
+    - name: PROXY_ADDRESS_FORWARDING
+      value: "true"
+
+    # Database parameters
+    - name: KC_DB
+      value: postgres
+    - name: KC_DB_URL_PORT
+      value: "5432"
+    - name: KC_DB_URL_DATABASE
+      value: "keycloak_data"
+
+    # Monitoring parameters
+    - name: KC_HEALTH_ENABLED
+      value: "true"
+    - name: KC_METRICS_ENABLED
+      value: "true"
+    - name: KC_LOG
+      value: console
+    - name: KC_LOG_CONSOLE_OUTPUT
+      value: json
+    - name: KC_LOG_LEVEL
+      value: info
+
+  extraEnvFrom: |
+    - secretRef:
+        name: keycloak-credentials
+
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      # Ingress controller
+      # Ref: https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/limit-rpm: "60"
+
+      # Configure sticky session. Keycloak is configured in cluster mode, but sticky sessions at ingress level avoid
+      # a lot of useless queries between nodes, improving the performance
+      nginx.ingress.kubernetes.io/affinity: cookie
+      nginx.ingress.kubernetes.io/affinity-mode: persistent
+      nginx.ingress.kubernetes.io/session-cookie-name: INGRESS_ROUTE
+      nginx.ingress.kubernetes.io/session-cookie-expires: "172800"
+      nginx.ingress.kubernetes.io/session-cookie-max-age: "172800"
+      nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
+
+      # Cert Manager
+      cert-manager.io/cluster-issuer: letsencrypt-production
+
+    rules:
+      - host: keycloak.example.com
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - hosts:
+          - keycloak.example.com
+        secretName: "keycloak-tls"
